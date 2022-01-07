@@ -1,0 +1,14 @@
+{
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "node": "current" // or '7.10.0'
+                }
+            }
+        ],
+        "@babel/preset-typescript",
+        "@babel/preset-react"
+    ]
+}

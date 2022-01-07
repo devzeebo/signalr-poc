@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  redis:
+    image: redis
+  api:
+    build:
+      context: ./src/SignalR.Poc.WebApi
+    depends_on:
+      - redis
+    deploy:
+      mode: replicated
+      replicas: 2
+  web-1:
+    build:
+      context: ./src/SignalR.Poc.UI
+    ports:
+      - 5000:8080
+    depends_on:
+      - api
+    environment:
+      - PROXY_HOSTNAME=http://signalr-poc_api_1:5000
+  web-2:
+    build:
+      context: ./src/SignalR.Poc.UI
+    ports:
+      - 5001:8080
+    depends_on:
+      - api
+    environment:
+      - PROXY_HOSTNAME=http://signalr-poc_api_2:5000

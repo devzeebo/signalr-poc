@@ -1,0 +1,20 @@
+FROM node:16
+
+WORKDIR app/
+
+COPY package-lock.json package-lock.json
+COPY package.json package.json
+
+RUN npm ci
+
+COPY .eslintignore .eslintignore
+COPY tsconfig.json tsconfig.json
+COPY tsconfig.build.json tsconfig.build.json
+COPY tsconfig.eslint.json tsconfig.eslint.json
+COPY .eslintrc.js .eslintrc.js
+COPY webpack.config.ts webpack.config.ts
+
+COPY build/ build/
+COPY src/ src/
+
+ENTRYPOINT npm run start
